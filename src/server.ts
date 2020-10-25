@@ -1,11 +1,15 @@
 import { createServer } from "http";
 
+import { ConfigOptions } from "ts";
+
 import { Configuration } from "./config";
 import { Application } from "./lib";
 
-const config = new Configuration();
-const application = new Application();
+const config: ConfigOptions = new Configuration();
+const application = new Application(config);
 
-const server = createServer(application.Instance()).listen(1337, "0.0.0.0", () => {
-   console.log(`Application Started`);
+const [instance, { host, mode, port }] = application.Instance();
+
+const server = createServer(instance).listen(port, host, () => {
+   console.log(`Server listen { host:${host}, port:${port} } in mode ${mode}`);
 });

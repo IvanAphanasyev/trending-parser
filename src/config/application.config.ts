@@ -1,4 +1,4 @@
-import { Mode, modes, ApplicationOptions } from "ts";
+import { Mode, modes, ApplicationOptions } from "../ts";
 class ApplicationConfiguration implements ApplicationOptions {
    host: string;
    mode: Mode;

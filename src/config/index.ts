@@ -1,7 +1,7 @@
 import { config } from "dotenv";
 import { join } from "path";
 
-import { ConfigOptions } from "ts";
+import { ConfigOptions } from "../ts";
 
 import { DatabaseConfiguration } from "./database.config";
 import { ApplicationConfiguration } from "./application.config";
