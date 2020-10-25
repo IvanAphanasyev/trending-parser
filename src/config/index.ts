@@ -4,9 +4,11 @@ import { join } from "path";
 import { ConfigOptions } from "ts";
 
 import { DatabaseConfiguration } from "./database.config";
+import { ApplicationConfiguration } from "./application.config";
 
 class Configuration implements ConfigOptions {
    database: DatabaseConfiguration;
+   application: ApplicationConfiguration;
    constructor(filePath: string = process.cwd(), fileName = ".env") {
       const path = join(filePath, fileName);
 
@@ -19,6 +21,7 @@ class Configuration implements ConfigOptions {
       const parsed = process.env;
 
       this.database = new DatabaseConfiguration(parsed);
+      this.application = new ApplicationConfiguration(parsed);
    }
 }
 export { Configuration };
