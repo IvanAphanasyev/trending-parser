@@ -1,0 +1,36 @@
+version: "3.7"
+
+services:
+   application:
+      container_name: application
+      build:
+         context: .
+         args:
+            - NODE_ENV=development
+      command: npm run watch-node
+      volumes:
+         - .:/opt/node_app:delegated
+         - ./package.json:/opt/node_app/package.json
+         - ./package-lock.json:/opt/node_app/package-lock.json
+      #     - notused:/opt/node_app/node_modules
+      environment:
+         NODE_ENV: "production"
+         HOST: "0.0.0.0"
+         DATABASE_URL: postgres://user:pass@postgres:5432/apidb
+      ports:
+         - "1337:3000"
+         - "9229:9229"
+         - "9230:9230"
+   database:
+      container_name: parser_database
+      build: ./sql
+      environment:
+         POSTGRES_USER: user
+         POSTGRES_PASSWORD: pass
+         POSTGRES_DB: apidb
+      ports:
+         - "5432:5432"
+      restart: unless-stopped
+
+volumes:
+   notused:

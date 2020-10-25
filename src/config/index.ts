@@ -1,7 +1,12 @@
 import { config } from "dotenv";
 import { join } from "path";
 
-class Configuration {
+import { ConfigOptions } from "ts";
+
+import { DatabaseConfiguration } from "./database.config";
+
+class Configuration implements ConfigOptions {
+   database: DatabaseConfiguration;
    constructor(filePath: string = process.cwd(), fileName = ".env") {
       const path = join(filePath, fileName);
 
@@ -12,6 +17,8 @@ class Configuration {
          console.warn(`DotEnv parser returns error from method 'config', reason: ${message}`);
       }
       const parsed = process.env;
+
+      this.database = new DatabaseConfiguration(parsed);
    }
 }
 export { Configuration };
