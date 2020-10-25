@@ -1,0 +1,2 @@
+class PostgresDatabase {}
+export { PostgresDatabase };
