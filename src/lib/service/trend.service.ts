@@ -1,19 +1,22 @@
-import { HttpParser, ParsingApi } from "api";
+import { HttpParser, ParsingApi, TrendConverter } from "api";
 import { NewTrendsResult } from "ts";
 class TrendService {
    parser: HttpParser;
    data: ParsingApi;
-   constructor(apis: { parser: HttpParser; data: ParsingApi }) {
-      const { parser, data } = apis;
+   converter: TrendConverter;
+   constructor(apis: { parser: HttpParser; data: ParsingApi; converter: TrendConverter }) {
+      const { parser, data, converter } = apis;
       this.parser = parser;
       this.data = data;
+      this.converter = converter;
    }
 
    public async newParse(): Promise<NewTrendsResult> {
       const parsed = await this.parser.parse();
-      const trends = await this.data.storeParseResult(parsed);
+      const { parsing, trends } = await this.data.storeParseResult(parsed);
 
-      return trends;
+      const converted = trends.map((trend) => this.converter.convert(trend));
+      return { parsing, trends: converted };
    }
 }
 export { TrendService };

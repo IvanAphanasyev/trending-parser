@@ -1,6 +1,6 @@
-import { Database, ParseResult, NewTrendsResult, ApplicationTrend, ParserOptions } from "ts";
+import { Database, ParseResult, ParserOptions } from "ts";
 import { ParsingRepository, TrendRepository } from "../../database";
-import { Trend } from "model";
+import { Trend, Parsing } from "model";
 
 class ParsingApi {
    config: ParserOptions;
@@ -12,7 +12,7 @@ class ParsingApi {
       this.config = config;
    }
 
-   public async storeParseResult(parsed: ParseResult[]): Promise<NewTrendsResult> {
+   public async storeParseResult(parsed: ParseResult[]): Promise<{ parsing: Parsing; trends: Trend[] }> {
       // need create new parse with version
       const parsing = await this.parsing.insert(); // create new parsing
       const { id } = parsing;
@@ -20,16 +20,11 @@ class ParsingApi {
       const promises = parsed.map(async (item) => {
          const { description, forks, language, order, stars, title } = item;
          const trend = await this.trend.insert({ parse_id: id, description, forks, language, index_order: order, stars, title });
-         return this.convertTrend(trend);
+         return trend;
       });
       const trends = await Promise.all(promises);
 
       return { parsing, trends };
-   }
-
-   private convertTrend(model: Trend): ApplicationTrend {
-      const { description, forks, id, index_order, language, stars, title } = model;
-      return { order: index_order, description, forks, id, language, stars, title, url: `${this.config.main}/${title}` };
    }
 }
 
