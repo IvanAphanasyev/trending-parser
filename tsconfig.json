@@ -15,7 +15,8 @@
       "paths": {
          "config": ["config"],
          "ts": ["ts"],
-         "model": ["api/database/model"]
+         "model": ["api/database/model"],
+         "controller": ["lib/controller"]
       },
       "experimentalDecorators": true,
       "emitDecoratorMetadata": true

@@ -1,13 +1,10 @@
 import { Router } from "express";
 
+import { ParseController } from "../../controller";
+
 const parseRouter = Router();
 
-parseRouter.get("/", (request, reply) => {
-   reply.send("trends");
-});
-
-parseRouter.post("/", (request, reply) => {
-   reply.send("executer");
-});
+parseRouter.get("/", ParseController.Get);
+parseRouter.post("/", ParseController.Post);
 
 export { parseRouter };

@@ -5,10 +5,12 @@ import { ConfigOptions } from "../ts";
 
 import { DatabaseConfiguration } from "./database.config";
 import { ApplicationConfiguration } from "./application.config";
+import { ParserConfiguration } from "./parser.config";
 
 class Configuration implements ConfigOptions {
    database: DatabaseConfiguration;
    application: ApplicationConfiguration;
+   parser: ParserConfiguration;
    constructor(filePath: string = process.cwd(), fileName = ".env") {
       const path = join(filePath, fileName);
 
@@ -22,6 +24,7 @@ class Configuration implements ConfigOptions {
 
       this.database = new DatabaseConfiguration(parsed);
       this.application = new ApplicationConfiguration(parsed);
+      this.parser = new ParserConfiguration();
    }
 }
 export { Configuration };

@@ -17,3 +17,5 @@ class TrendRepository {
       return inserted;
    }
 }
+
+export { TrendRepository };
