@@ -5,8 +5,8 @@ import { TrendService } from "./trend.service";
 class Service {
    trends: TrendService;
    constructor(api: Api) {
-      const { parser } = api;
-      this.trends = new TrendService({ parser });
+      const { parser, data } = api;
+      this.trends = new TrendService({ parser, data });
    }
 }
 export { Service };

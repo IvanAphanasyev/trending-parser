@@ -1,9 +1,8 @@
 import { load } from "cheerio";
 
-import { ParserOptions } from "ts";
+import { ParserOptions, ParseResult } from "ts";
 
 import { request } from "./requester";
-import { ParseResult } from "./interface";
 
 class HttpParser {
    config: ParserOptions;
