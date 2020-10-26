@@ -16,7 +16,8 @@
          "config": ["config"],
          "ts": ["ts"],
          "model": ["api/database/model"],
-         "controller": ["lib/controller"]
+         "controller": ["lib/controller"],
+         "api": ["api"]
       },
       "experimentalDecorators": true,
       "emitDecoratorMetadata": true
