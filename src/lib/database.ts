@@ -1,12 +1,16 @@
 import { Pool, PoolConfig, QueryResult } from "pg";
-class PostgresDatabase {
+
+import { Database } from "ts";
+class PostgresDatabase<T = any> implements Database<T> {
    pool: Pool;
    constructor(config: PoolConfig) {
       this.pool = new Pool(config);
    }
 
-   async query(sql: string, values?: unknown[]): Promise<QueryResult<Record<string, unknown>>> {
-      return this.pool.query(sql, values);
+   async query(sql: string, values?: any[]): Promise<T[]> {
+      const queryResult = await this.pool.query(sql, values);
+      const { rows } = queryResult;
+      return rows;
    }
 }
 export { PostgresDatabase };

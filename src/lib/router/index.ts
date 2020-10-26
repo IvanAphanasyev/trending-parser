@@ -1,11 +1,8 @@
 import { Router } from "express";
+import { firstVersionAPI } from "./version_1";
 
 const apiRouter = Router();
 
-apiRouter.use("/api", async (request, reply) => {
-   request.log.info("hello");
-
-   reply.send({ hello: "hello" });
-});
+apiRouter.use("/api/v1", firstVersionAPI);
 
 export { apiRouter };

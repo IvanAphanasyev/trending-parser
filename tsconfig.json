@@ -14,7 +14,8 @@
       "baseUrl": "./src",
       "paths": {
          "config": ["config"],
-         "ts": ["ts"]
+         "ts": ["ts"],
+         "model": ["api/database/model"]
       },
       "experimentalDecorators": true,
       "emitDecoratorMetadata": true
