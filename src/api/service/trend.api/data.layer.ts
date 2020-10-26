@@ -26,6 +26,22 @@ class ParsingApi {
 
       return { parsing, trends };
    }
+
+   public async getTrends(verion: number): Promise<{ parsing: Parsing; trends: Trend[] }> {
+      const parsing = await this.getParse(verion);
+
+      const { id } = parsing;
+      const trends = await this.trend.selectByParse({ parse_id: id });
+
+      return { parsing, trends };
+   }
+   private async getParse(verion: number): Promise<Parsing> {
+      const byVersion = await this.parsing.selectByVersion(verion);
+      if (!byVersion) {
+         return this.parsing.selectLastVersion();
+      }
+      return byVersion;
+   }
 }
 
 export { ParsingApi };

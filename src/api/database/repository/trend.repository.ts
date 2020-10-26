@@ -15,6 +15,13 @@ class TrendRepository {
       const [inserted] = result;
       return inserted;
    }
+   public async selectByParse(params: { parse_id: string }): Promise<Trend[]> {
+      const { parse_id } = params;
+      const sql = `SELECT id, title, description, language, stars, forks, index_order FROM trend
+        WHERE parse_id = $1`;
+      const result = await this.database.query(sql, [parse_id]);
+      return result;
+   }
 }
 
 export { TrendRepository };
